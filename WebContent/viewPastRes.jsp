@@ -6,6 +6,8 @@
 
 <!DOCTYPE html PUBLIC "-//W3C//DTD HTML 4.01 Transitional//EN" "http://www.w3.org/TR/html4/loose.dtd">
 <html>
+<button style="background-color: green; border-radius: 10px; position: absolute; top:0px; right: 20px;" onclick="window.location.href='home.jsp'">Home</button>
+<button style="background-color: red; border-radius: 10px; position: absolute; top:25px; right: 20px;" onclick="window.location.href='logout.jsp'">Logout</button>
 <head>
 <meta http-equiv="Content-Type" content="text/html; charset=ISO-8859-1">
 <title>Current Reservations</title>
@@ -15,6 +17,7 @@
 <table border="1">
 <tr>
 <th>Reservation Number</th>
+<th>Reservation Status</th>
 <th>Transit Line Name</th>
 </tr>
 <%
@@ -27,7 +30,7 @@
 		
 		String username = (String)session.getAttribute("newUsername"); 
 		
-		String getResults = "select r.resNum resNum, s.transitLineName transitLineName from reservations r, schedules s where(r.scheduleNum = s.scheduleNum) and r.username = '" + username + "' and (r.status = 'canceled' or r.status = 'expired') order by r.resNum ASC";
+		String getResults = "select r.resNum resNum, r.status, s.transitLineName transitLineName from reservations r, schedules s where(r.scheduleNum = s.scheduleNum) and r.username = '" + username + "' and (r.status = 'canceled' or r.status = 'expired') order by r.resNum ASC";
 		
 		System.out.println(getResults);
 		ResultSet result = stmt.executeQuery(getResults);
@@ -40,9 +43,11 @@
 <% hasResults = true; 
 int resNum = result.getInt("resNum");%>
 <td><%=resNum%></td>
+<% String status = result.getString("status");%>
+<td><%=status%></td>
 <% String transitLineName = result.getString("transitLineName");%>
 <td><%=transitLineName%></td>
-<td><input type="submit" name="Details" value="Details" style="background-color:green;font-weight:bold;color:black;"onclick="window.location.href='viewScheduleDetails.jsp?resNum=<%=resNum%>&transitLineName=<%=transitLineName%>'"></td>
+<td><input type="submit" name="Details" value="Details" style="background-color:green;font-weight:bold;color:black;"onclick="window.location.href='viewScheduleDetails.jsp?resNum=<%=resNum%>&transitLineName=<%=transitLineName%>&status=<%=status%>'"></td>
 </tr> 
 <%}
 if(!hasResults){

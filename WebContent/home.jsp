@@ -18,7 +18,7 @@
     if(session.getAttribute("acctType").equals("Customer")) {
 %>
 <input type = "button" value = "View Current Reservations" onClick = "javascript:window.location='viewCurrentRes.jsp'">
-<input type = "button" value = "View Past Reservations" onClick = "javascript:window.location='searchSchedules.jsp'">
+<input type = "button" value = "View Past Reservations" onClick = "javascript:window.location='viewPastRes.jsp'">
 <input type = "button" value = "Browse Questions/Answers" onClick = "javascript:window.location='questionList.jsp'">
 
 

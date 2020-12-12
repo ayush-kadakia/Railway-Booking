@@ -27,7 +27,7 @@
 		//for each: resNum, line name, fare, date, origin station, origin time, destination station, destination time
 		String resNum = (String)request.getParameter("resNum");
 		String transitLineName = (String)request.getParameter("transitLineName");
-		String ref = request.getParameter("ref");
+		String status = (String)request.getParameter("status");
 		String getRes = "select* from reservations where resNum = " + resNum;
 		ResultSet result = stmt.executeQuery(getRes);
 		java.sql.Date date = null;
@@ -70,6 +70,10 @@
 <td><input type="text" name="resNum" value="<%=resNum%>" readonly></td>
 </tr>
 <tr>
+<th>Status:</th>
+<td><input type="text" name="staus" value="<%=status%>" readonly></td>
+</tr>
+<tr>
 <th>Transit Line Name:</th>
 <td><input type="text" name="lineName" value="<%=transitLineName%>" readonly></td>
 </tr>
@@ -92,7 +96,6 @@
 <tr>
 <td colspan="3">
 <center>
-<input type="submit" name="makeReservation" value = "Cancel" style="background-color:red;font-weight:bold;color:black;"></center>
 </td>
 </tr>
 </table>
