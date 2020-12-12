@@ -47,7 +47,7 @@ int resNum = result.getInt("resNum");%>
 <td><%=status%></td>
 <% String transitLineName = result.getString("transitLineName");%>
 <td><%=transitLineName%></td>
-<td><input type="submit" name="Details" value="Details" style="background-color:green;font-weight:bold;color:black;"onclick="window.location.href='viewScheduleDetails.jsp?resNum=<%=resNum%>&transitLineName=<%=transitLineName%>&status=<%=status%>'"></td>
+<td><input type="submit" name="Details" value="Details" style="background-color:green;font-weight:bold;color:black;"onclick="window.location.href='viewPastResDetails.jsp?resNum=<%=resNum%>&transitLineName=<%=transitLineName%>&status=<%=status%>'"></td>
 </tr> 
 <%}
 if(!hasResults){

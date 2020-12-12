@@ -44,6 +44,24 @@
 	resNum  += 1;
 	result.close();
 	
+	java.sql.Date today = null;
+	java.sql.Date schDate = null;
+	
+	result = stmt.executeQuery("select CURDATE() today");
+	while(result.next()){
+		today = result.getDate("today");
+	}
+	result.close();
+	String getSched = "select scheduleDate from schedules where scheduleNum = " + schNum;
+	result = stmt.executeQuery(getSched);
+	while(result.next()){
+		schDate = result.getDate("scheduleDate");
+	}
+	result.close();
+	if(today.compareTo(schDate) > 0){
+		out.println("Error: cannot make a reservation for a schedule that has already expired.");
+	}
+	else{
 %>
 <script>
 function changeFare() {
@@ -131,5 +149,6 @@ function changeFare() {
 <center>
 <input type="submit" name="makeReservation" value = "Make Reservation" style="background-color:gray;font-weight:bold;color:black;"></center>
 </form>
+<%}%>
 </body>
 </html>
