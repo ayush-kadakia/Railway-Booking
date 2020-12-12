@@ -8,7 +8,7 @@
 <html>
 <head>
 <meta http-equiv="Content-Type" content="text/html; charset=ISO-8859-1">
-<title>Search Results</title>
+<title>Current Reservations</title>
 </head>
 <body>
 
@@ -16,12 +16,6 @@
 <tr>
 <th>Reservation Number</th>
 <th>Transit Line Name</th>
-<th>Fare</th>
-<th>Date of Travel</th>
-<th>Origin Stop Number</th>
-<th>Origin Stop Time</th>
-<th>Destination Stop Number</th>
-<th>Destination Stop Time</th>
 </tr>
 <%
 		//Get the database connection
@@ -33,7 +27,9 @@
 		
 		String username = (String)session.getAttribute("newUsername"); 
 		
-		String getResults = "select* from reservations where username = '" + username + "' and status = 'active' order by resNum ASC'";
+		String getResults = "select r.resNum resNum, s.transitLineName transitLineName from reservations r, schedules s where(r.scheduleNum = s.scheduleNum) and r.username = '" + username + "' and r.status = 'active' order by r.resNum ASC";
+		
+		System.out.println(getResults);
 		ResultSet result = stmt.executeQuery(getResults);
 		
 		//System.out.println(getResults);
@@ -45,21 +41,8 @@
 int resNum = result.getInt("resNum");%>
 <td><%=resNum%></td>
 <% String transitLineName = result.getString("transitLineName");%>
-<%String status = result.getString("status");%>
-<td><%=status%></td>
 <td><%=transitLineName%></td>
-<% float fare = result.getFloat("fare");%>
-<td><%=fare%></td>
-<td><%=date%></td>
-<% int ogNum = result.getInt("ogNum");%>
-<td><%=ogNum%></td>
-<% java.sql.Time originTime = result.getTime("originTime");%>
-<td><%=originTime%></td>
-<% int destNum = result.getInt("destNum");%>
-<td><%=destNum%></td>
-<% java.sql.Time destTime = result.getTime("destTime");%>
-<td><%=destTime%></td>
-<td><input type="submit" name="Details" value="details" style="background-color:green;font-weight:bold;color:black;"onclick="window.location.href='scheduleDetails.jsp?schNum=<%=schNum%>&ogNum=<%=ogNum%>&destNum=<%=destNum%>&ogID=<%=stationID1%>&destID=<%=stationID2%>'"></td>
+<td><input type="submit" name="Details" value="Details" style="background-color:green;font-weight:bold;color:black;"onclick="window.location.href='viewScheduleDetails.jsp?resNum=<%=resNum%>&transitLineName=<%=transitLineName%>'"></td>
 </tr> 
 <%}
 if(!hasResults){
