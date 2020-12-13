@@ -10,7 +10,7 @@
 <button style="background-color: red; border-radius: 10px; position: absolute; top:25px; right: 20px;" onclick="window.location.href='logout.jsp'">Logout</button>
 <head>
 <meta http-equiv="Content-Type" content="text/html; charset=ISO-8859-1">
-<title>Edit/Delete Schedule</title>
+<title>Search for Schedules by station</title>
 </head>
 <body>
 <form method="post" name="form" action="repScheduleResults.jsp">
